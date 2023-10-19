@@ -1,0 +1,15 @@
+# Port for incoming communication
+SMESH_PORT=7613
+
+# Port for API communication
+SMESH_JSON_PORT=9190
+SMESH_GRPC_PUB_PORT=9192
+SMESH_GRPC_PRIV_PORT=9193
+
+
+# Data directory for spacemesh
+# (leave empty for default docker volume)
+SMESH_HOST_DATA_PATH=./data
+
+# Edit to set specific go-spacemesh version
+GO_SPACEMESH_VERSION=v1.2.2

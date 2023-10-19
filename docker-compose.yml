@@ -1,0 +1,38 @@
+version: '3.7'
+services:
+  go-spacemesh:
+     image: talm0/go-spacemesh:${GO_SPACEMESH_VERSION:-latest}
+     build: 
+        context: .
+        args:
+          GO_SPACEMESH_VERSION: ${GO_SPACEMESH_VERSION}
+     container_name: go-spacemesh
+     deploy:
+       resources:
+         reservations:
+            devices:
+              - driver: nvidia
+                count: all
+                capabilities: [gpu]
+     command: [ '/opt/spacemesh/run' ]
+     ports:
+        - "127.0.0.1:${SMESH_PORT:-7513}:${SMESH_PORT:-7513}"
+        - "127.0.0.1:${SMESH_JSON_PORT:-9090}:9090"
+        - "127.0.0.1:${SMESH_GRPC_PUB_PORT:-9092}:9092"
+        - "127.0.0.1:${SMESH_GRPC_PRIV_PORT:-9092}:9093"
+     networks:
+       go-spacemesh: {}
+       
+     volumes:
+        - "${SMESH_HOST_DATA_PATH:-smesh-data}:/home/spacemesh"
+
+
+volumes:
+  smesh-data:
+        
+# Specify network interface name to make firewall rules easier.
+networks:
+  go-spacemesh:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: "docker-gosm"

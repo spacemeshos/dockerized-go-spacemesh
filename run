@@ -1,0 +1,2 @@
+#!/bin/bash
+/opt/spacemesh/go-spacemesh --config /home/spacemesh/.config/Spacemesh/node-config.json -d /home/spacemesh/.config/node-data/7c8cef2b
